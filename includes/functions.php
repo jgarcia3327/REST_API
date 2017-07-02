@@ -2,14 +2,14 @@
 // Method: POST, PUT, GET etc
 // Url: $SITE_URL.'REST/request/list' = all books, $SITE_URL.'REST/request/list/1/' = certain book
 
-function callREST($method, $url)
-{
+function callREST($method, $url) {
     $curl = curl_init();
 
     switch ($method)
     {
         case "POST": curl_setopt($curl, CURLOPT_POST, 1); break;
         case "PUT": curl_setopt($curl, CURLOPT_PUT, 1); break;
+        case "DELETE": curl_setopt($curl, CURLOPT_DELETE, 1); break;
         default: curl_setopt($curl, CURLOPT_HTTPGET, 1);
     }
 

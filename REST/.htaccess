@@ -3,8 +3,8 @@ Options +FollowSymlinks
 RewriteEngine on
 
 # map neat URL to internal URL
-RewriteRule ^request/list/$   RestController.php?view=all [nc,qsa]
-RewriteRule ^request/list/([0-9]+)/$   RestController.php?view=single&id=$1 [nc,qsa]
+RewriteRule ^query/(.*)/(.*)/(.*)/$   RestController.php?table=$1&field=$2&where=$3 [nc,qsa]
+RewriteRule ^insert/(.*)/$   RestController.php?table=$1 [nc,qsa]
 
 # Security
 #order deny,allow

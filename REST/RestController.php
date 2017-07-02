@@ -1,29 +1,31 @@
 <?php
 require_once("RestHandler.php");
 
-$view = "";
-if(isset($_GET["view"]))
-	$view = $_GET["view"];
+$method = $_SERVER["REQUEST_METHOD"];
+
+### Remote DB Request
+$table = "";
+if (isset($_GET["table"])) $table = $_GET["table"];
+$field = "";
+if (isset($_GET["field"])) $field = $_GET["field"];
+$where = "";
+if (isset($_GET["where"])) $where = $_GET["where"];
+
 /*
 controls the RESTful services
 URL mapping
 */
-switch($view){
 
-	case "all":
-		// to handle REST Url /rest/list/
-		$mobileRestHandler = new RestHandler();
-		$mobileRestHandler->getAllBooks();
-		break;
-
-	case "single":
-		// to handle REST Url /rest/show/<id>/
-		$mobileRestHandler = new RestHandler();
-		$mobileRestHandler->getBook($_GET["id"]);
-		break;
-
-	case "" :
-		//404 - not found;
-		break;
+switch($method) {
+	case "GET":
+	$query = new RestHandler();
+	$query->selectQuery($table, $field, $where);
+	break;
+	case "PUT":
+	case "POST":
+	$query = new RestHandler();
+	$query->insertQuery($table, $_POST);
+	break;
+	case "DELETE":
 }
 ?>

@@ -1,22 +1,27 @@
 <?php
 require_once("BaseRest.php");
-require_once("OnlineSchool.php");
+require_once("DBConnector.php");
 
 class RestHandler extends BaseRest {
 
-	function getAllBooks() {
+	private $db;
 
-		$book = new OnlineSchool();
-		$rawData = $book->getAllBooks();
+	function __construct() {
+		$dbname="onlineschool_db";
+		$user="root";
+		$host="localhost";
+		$pass="";
 
+		$this->db = new DBConnector($dbname, $user, $pass, $host);
+	}
+
+	function selectQuery($table, $field, $where) {
+		$rawData = $this->db->selectQuery($table, $field, $where);
 		$this->deliverData($rawData);
 	}
 
-	function getBook($id) {
-
-		$book = new OnlineSchool();
-		$rawData = $book->getBook($id);
-
+	function insertQuery($table, $data_array) {
+		$rawData = $this->db->insertUpdateQuery($table, $data_array);
 		$this->deliverData($rawData);
 	}
 
